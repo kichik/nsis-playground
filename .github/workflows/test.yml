@@ -12,7 +12,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: brew install scons mingw-w64 zlib cppunit
+        run: brew install scons mingw-w64 zlib
+
+      - name: Install CppUnit
+        run: brew install --verbose cppunit
 
       - name: Prepare zlib directory
         run: |
