@@ -15,7 +15,7 @@ jobs:
         run: brew install scons mingw-w64 zlib
 
       - name: Install CppUnit
-        run: brew install --verbose cppunit@1.13.2
+        run: brew search cppunit
 
       - name: Prepare zlib directory
         run: |
