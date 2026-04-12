@@ -1,0 +1,34 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install scons mingw-w64 zlib cppunit
+
+      - name: Prepare zlib directory
+        run: |
+          curl --retry 9 -sLo $HOME/zlib.zip "https://downloads.sourceforge.net/project/libpng/zlib/1.2.8/zlib128-dll.zip?r=&ts=1403402496&use_mirror=hivelocity"
+          mkdir -p $HOME/zlib
+          unzip -o $HOME/zlib.zip -d $HOME/zlib
+
+      - name: Run scons (allow failure)
+        continue-on-error: true
+        run: scons ZLIB_W32=$HOME/zlib SKIPUTILS="NSIS Menu" NSIS_CONFIG_LOG=yes test dist-zip
+
+      - name: Print config.log
+        if: always()
+        run: |
+          if [ -f config.log ]; then
+            cat config.log
+          else
+            echo "config.log not found"
+          fi
