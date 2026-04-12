@@ -17,7 +17,7 @@ jobs:
       - name: Install CppUnit
         run: |
           curl --retry 9 -sLo cppunit.rb "https://sourceforge.net/p/nsis/code/HEAD/tree/web-scripts/trunk/cppunit.rb?format=raw"
-          brew install -s --formula cppunit.rb
+          HOMEBREW_DEVELOPER=true brew install -s --formula cppunit.rb
           #brew search cppunit@1.13.2
 
       - name: Prepare zlib directory
