@@ -15,33 +15,13 @@ jobs:
         run: brew install scons mingw-w64 zlib
 
       - name: Install CppUnit
-        run: brew install --verbose cppunit
+        run: brew install --verbose cppunit@1.13.2
 
       - name: Prepare zlib directory
         run: |
           curl --retry 9 -sLo $HOME/zlib.zip "https://downloads.sourceforge.net/project/libpng/zlib/1.2.8/zlib128-dll.zip?r=&ts=1403402496&use_mirror=hivelocity"
           mkdir -p $HOME/zlib
           unzip -o $HOME/zlib.zip -d $HOME/zlib
-
-      - name: look for HelperMacros.h
-        run: |
-          if [ -f /usr/local/include/HelperMacros.h ]; then
-            echo "HelperMacros.h found in /usr/local/include"
-          else
-            echo "HelperMacros.h not found in /usr/local/include"
-            matches=$(find /usr /opt/homebrew "$HOME" 2>/dev/null | grep cppunit)
-            if [ -n "$matches" ]; then
-              echo "$matches"
-            else
-              echo "HelperMacros.h not found in common include paths"
-            fi
-          fi
-
-          #brew ls --verbose cppunit
-
-          echo XXXXXXXXXX
-
-          ls -l /opt/homebrew/include/cppunit
 
       - name: Run scons (allow failure)
         continue-on-error: true
