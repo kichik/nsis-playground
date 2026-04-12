@@ -29,7 +29,7 @@ jobs:
             echo "HelperMacros.h found in /usr/local/include"
           else
             echo "HelperMacros.h not found in /usr/local/include"
-            matches=$(find /usr/local/include /opt/homebrew/include /usr/include "$HOME" -name HelperMacros.h 2>/dev/null | head -n 20)
+            matches=$(find /usr /opt/homebrew/include "$HOME" -name HelperMacros.h 2>/dev/null | head -n 20)
             if [ -n "$matches" ]; then
               echo "$matches"
             else
