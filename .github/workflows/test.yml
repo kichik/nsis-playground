@@ -28,7 +28,7 @@ jobs:
 
       - name: Run scons (allow failure)
         continue-on-error: true
-        run: scons ZLIB_W32=$HOME/zlib SKIPUTILS="NSIS Menu" NSIS_CONFIG_LOG=yes APPEND_CPPPATH=/opt/homebrew/include test dist-zip
+        run: scons ZLIB_W32=$HOME/zlib SKIPUTILS="NSIS Menu" NSIS_CONFIG_LOG=yes APPEND_CPPPATH=/opt/homebrew/include APPEND_LIBPATH=/opt/homebrew/lib test dist-zip
 
       - name: Print config.log
         if: always()
