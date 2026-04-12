@@ -29,7 +29,7 @@ jobs:
             echo "HelperMacros.h found in /usr/local/include"
           else
             echo "HelperMacros.h not found in /usr/local/include"
-            matches=$(find /usr /opt/homebrew/include "$HOME" -name HelperMacros.h 2>/dev/null | head -n 20)
+            matches=$(find /usr /opt/homebrew "$HOME" -name HelperMacros.h 2>/dev/null | head -n 20)
             if [ -n "$matches" ]; then
               echo "$matches"
             else
@@ -37,7 +37,7 @@ jobs:
             fi
           fi
 
-          find /opt/homebrew/Cellar/cppunit/1.15.1 | grep include
+          brew ls --verbose cppunit
 
       - name: Run scons (allow failure)
         continue-on-error: true
