@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14, macos-latest]
+        os: [macos-14, macos-15, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
       LANG: en_US.UTF-8
@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "OS Version: $(sw_vers -productVersion)"
           echo "Locale: $(locale)"
-          echo "wchar_t size: $(printf '#include <stdio.h>\nint main() { printf(\"%zu\", sizeof(wchar_t)); }' | clang -x c - -o /tmp/test && /tmp/test)"
+          echo "wchar_t size: $(printf '#include <stdio.h>\n#include <wchar.h>\nint main(void) { printf(\"%zu\", sizeof(wchar_t)); return 0; }\n' | clang -x c - -o /tmp/test && /tmp/test)"
 
       - name: Install dependencies
         run: brew install scons mingw-w64 zlib
