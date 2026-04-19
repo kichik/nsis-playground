@@ -110,8 +110,11 @@ WINWCHAR* WinWStrDupFromWC(const wchar_t *s)
 #else
   // NOTE: Anything outside the ASCII range will not convert correctly!
   size_t cch = wcslen(s) + 1;
-  WINWCHAR* p = (WINWCHAR*) malloc(cch * 2);
-  if (p) for (size_t i = 0; i < cch; ++i) p[i] = FIX_ENDIAN_INT16(s[i]);
+  WINWCHAR* p = (WINWCHAR*) malloc(cch * sizeof(WINWCHAR));
+  if (p) for (size_t i = 0; i < cch; ++i) {
+    p[i] = FIX_ENDIAN_INT16(s[i]);
+    printf("copying %04x -> %04x\n", s[i], p[i]);
+  }
   return p;
 #endif
 }
