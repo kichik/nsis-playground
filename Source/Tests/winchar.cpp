@@ -33,7 +33,7 @@ public:
   void printWchars(char *name, WINWCHAR *bytes, int size) {
     printf("** %s ", name);
     for (int i = 0; i < size; i++) {
-      printf("%04x ", bytes[i]);
+      // printf("%04x ", bytes[i]);
     }
     printf("\n");
   }
