@@ -33,27 +33,27 @@ public:
   void printWchars(char *name, WINWCHAR *bytes, int size) {
     printf("** %s ", name);
     for (int i = 0; i < size; i++) {
-      printf("%02x ", bytes[i]);
+      printf("%04x ", bytes[i]);
     }
     printf("\n");
   }
 
   void testFromTchar() {
     WINWCHAR test[] = { _x('t'), _x('e'), _x('s'), _x('t'), 0 };
-    printWchars("test", test, sizeof(test));
+    printWchars("test", test, sizeof(test)/sizeof(WCHAR));
 
     WINWCHAR *dyn = WinWStrDupFromTChar(_T("test"));
-    printWchars("WinWStrDupFromTChar", dyn, sizeof(test));
+    printWchars("WinWStrDupFromTChar", dyn, sizeof(test)/sizeof(WCHAR));
     CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
 
     dyn = WinWStrDupFromChar("test");
-    printWchars("WinWStrDupFromChar", dyn, sizeof(test));
+    printWchars("WinWStrDupFromChar", dyn, sizeof(test)/sizeof(WCHAR));
     CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
 
     dyn = WinWStrDupFromWC(L"test");
-    printWchars("WinWStrDupFromWC", dyn, sizeof(test));
+    printWchars("WinWStrDupFromWC", dyn, sizeof(test)/sizeof(WCHAR));
     CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
   }

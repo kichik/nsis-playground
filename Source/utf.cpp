@@ -167,6 +167,7 @@ void* CharEncConv::Convert(const void*Src, size_t cbSrc, size_t*cbOut)
       assert(0);
       return 0;
     }
+    printf("*** cbSrc = %d\n");
     cbSrc = (cbSrc + 1) * cus;
   }
   if (m_FE == m_TE)
