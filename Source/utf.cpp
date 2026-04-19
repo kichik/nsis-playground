@@ -164,7 +164,8 @@ void* CharEncConv::Convert(const void*Src, size_t cbSrc, size_t*cbOut)
         cbSrc = wcslen((wchar_t*)Src);
         break;
       }
-      assert(0);
+      printf("not sure");
+      exit(0);
       return 0;
     }
     printf("*** cbSrc = %d\n");
