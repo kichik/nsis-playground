@@ -30,19 +30,31 @@ public:
   void setUp() {
   }
 
+  void printWchars(char *name, WINWCHAR *bytes, int size) {
+    printf("** %s ", name);
+    for (int i = 0; i < size; i++) {
+      printf("%02x ", bytes[i]);
+    }
+    printf("\n");
+  }
+
   void testFromTchar() {
     WINWCHAR test[] = { _x('t'), _x('e'), _x('s'), _x('t'), 0 };
+    printWchars("test", test, sizeof(test));
 
     WINWCHAR *dyn = WinWStrDupFromTChar(_T("test"));
-    CPPUNIT_ASSERT_EQUAL( 0, WinWStrCmp(test, dyn) );
+    printWchars("WinWStrDupFromTChar", dyn, sizeof(test));
+    CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
 
     dyn = WinWStrDupFromChar("test");
-    CPPUNIT_ASSERT_EQUAL( 0, WinWStrCmp(test, dyn) );
+    printWchars("WinWStrDupFromChar", dyn, sizeof(test));
+    CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
 
     dyn = WinWStrDupFromWC(L"test");
-    CPPUNIT_ASSERT_EQUAL( 0, WinWStrCmp(test, dyn) );
+    printWchars("WinWStrDupFromWC", dyn, sizeof(test));
+    CPPUNIT_ASSERT_EQUAL( 0, memcmp(test, dyn, sizeof(test)) );
     free(dyn);
   }
 
