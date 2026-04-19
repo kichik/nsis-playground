@@ -45,20 +45,17 @@ int WinWStrNICmpASCII(const WINWCHAR *a, const char *b, size_t n)
 
 WINWCHAR* WinWStrDupFromChar(const char *s, unsigned int cp)
 {
-#ifndef _WIN32
-  CharEncConv cec;
-  if (!cec.Initialize(NStreamEncoding::UTF16LE, cp)) return 0;
-  WINWCHAR *p = (WINWCHAR*) cec.Convert(s);
-  return p ? (WINWCHAR*) cec.Detach() : 0;
-#else
   int cch = MultiByteToWideChar(cp, 0, s, -1, 0, 0);
   wchar_t *p = (wchar_t*) malloc(cch * sizeof(wchar_t));
   if (p)
   {
     MultiByteToWideChar(cp, 0, s, -1, p, cch);
+#ifndef _WIN32
+    wchar_t *p2 = (wchar_t*) WinWStrDupFromWC(p);
+    free(p), p = p2;
+#endif
   }
   return (WINWCHAR*) p;
-#endif
 }
 
 #ifndef _WIN32
