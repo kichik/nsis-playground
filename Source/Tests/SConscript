@@ -108,6 +108,9 @@ env.Append(CCFLAGS = ['$EXCEPTION_FLAG'])
 # for lzma
 env.Append(CPPDEFINES = ['COMPRESS_MF_BT'])
 
+# for winchar
+env.Append(CPPDEFINES = ['MAKENSIS'])
+
 # test for CppUnit
 conf = env.Configure()
 cppunit = conf.CheckLibWithHeader(cppunitlibs, 'cppunit/extensions/HelperMacros.h', 'C++')
