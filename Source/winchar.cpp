@@ -110,7 +110,7 @@ WINWCHAR* WinWStrDupFromWC(const wchar_t *s)
 #else
   // NOTE: Anything outside the ASCII range will not convert correctly!
   size_t cch = wcslen(s);
-  printf("wcslen returned %d (wchar_t = %d)\n", cch, sizeof(whcar_t));
+  printf("wcslen returned %d (wchar_t = %d)\n", cch, sizeof(wchar_t));
   WINWCHAR* p = (WINWCHAR*) malloc((cch + 1) * sizeof(WINWCHAR));
   if (p) for (size_t i = 0; i < cch; ++i) p[i] = FIX_ENDIAN_INT16(s[i]);
   p[cch] = 0;
